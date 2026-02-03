@@ -1,0 +1,541 @@
+{
+  "project": {
+    "name": "AI Ghostwriter & Smart Glasses Research Ecosystem",
+    "description": "Multi-agent AI system for automated news curation, progress tracking, and content generation",
+    "tech_stack": "Python 3.11+, LangGraph, Anthropic Claude",
+    "version": "1.0.0"
+  },
+  "tasks": [
+    {
+      "task_name": "Initialize Python Project Structure",
+      "task_description": "Create Python project with proper package structure, __init__.py files, and basic directory organization. Set up src/ as the main package with agents/, graph/, and utils/ subpackages. Include proper Python package conventions (setup.py or pyproject.toml). Acceptance Criteria: Directory structure exists with all __init__.py files, project can be imported as a Python package.",
+      "progress": "not_started",
+      "category": "Project Setup",
+      "complexity": "low",
+      "dependencies": [],
+      "estimated_hours": 1
+    },
+    {
+      "task_name": "Create requirements.txt with Core Dependencies",
+      "task_description": "Define all Python dependencies including langchain, langgraph, anthropic, pydantic, python-dotenv, pyyaml, requests, and testing frameworks (pytest, pytest-asyncio). Pin versions for stability. Include optional dev dependencies. Acceptance Criteria: requirements.txt file exists with all necessary packages, pip install -r requirements.txt succeeds without errors.",
+      "progress": "not_started",
+      "category": "Project Setup",
+      "complexity": "low",
+      "dependencies": ["Initialize Python Project Structure"],
+      "estimated_hours": 1
+    },
+    {
+      "task_name": "Set Up Environment Configuration (.env)",
+      "task_description": "Create .env.example template with all required environment variables: ANTHROPIC_API_KEY, NEWS_API_KEY, GOOGLE_NEWS_API_KEY (optional), and any other API keys. Add .env to .gitignore. Document each variable's purpose and how to obtain keys. Acceptance Criteria: .env.example exists with comprehensive documentation, .gitignore includes .env, README explains setup process.",
+      "progress": "not_started",
+      "category": "Project Setup",
+      "complexity": "low",
+      "dependencies": ["Initialize Python Project Structure"],
+      "estimated_hours": 1
+    },
+    {
+      "task_name": "Create Configuration File Schemas",
+      "task_description": "Define YAML schemas for config/keywords.yaml (smart glasses search terms, relevance keywords), config/sources.yaml (News API endpoints and parameters), and config/style_guide_twitter.yaml (Twitter formatting rules, character limits, hashtag strategies). Use Pydantic models for validation. Acceptance Criteria: All config files exist with example values, Pydantic models validate structure correctly.",
+      "progress": "not_started",
+      "category": "Project Setup",
+      "complexity": "medium",
+      "dependencies": ["Initialize Python Project Structure"],
+      "estimated_hours": 2
+    },
+    {
+      "task_name": "Initialize Data Storage Directories",
+      "task_description": "Create data/cache/, data/progress/, data/drafts/ directories with .gitkeep files. Add README.md in data/ explaining the purpose of each subdirectory. Set up JSON schema for cached articles and progress logs. Acceptance Criteria: All data directories exist, are documented, and have example schema files.",
+      "progress": "not_started",
+      "category": "Project Setup",
+      "complexity": "low",
+      "dependencies": ["Initialize Python Project Structure"],
+      "estimated_hours": 1
+    },
+    {
+      "task_name": "Set Up LangGraph State Schema",
+      "task_description": "Define TypedDict or Pydantic BaseModel for LangGraph state that includes: raw_articles (list), curated_articles (list), progress_notes (dict), content_hooks (list), draft_essay (str), draft_tweets (list), metadata (dict). Include proper type hints and validation. Acceptance Criteria: State schema is defined in src/graph/state.py, all fields are typed, validation works correctly.",
+      "progress": "not_started",
+      "category": "Project Setup",
+      "complexity": "medium",
+      "dependencies": ["Create requirements.txt with Core Dependencies"],
+      "estimated_hours": 2
+    },
+    {
+      "task_name": "Create Logging and Error Handling Utilities",
+      "task_description": "Implement centralized logging system with different log levels for each agent. Create error handling decorators for retry logic with exponential backoff. Add fallback mechanisms for API failures. Acceptance Criteria: src/utils/logging.py and src/utils/error_handling.py exist with comprehensive error handling, logs are written to both console and file.",
+      "progress": "not_started",
+      "category": "Project Setup",
+      "complexity": "medium",
+      "dependencies": ["Initialize Python Project Structure"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Implement News API Client for Scout Agent",
+      "task_description": "Create a reusable NewsAPI client in src/utils/news_api.py that handles authentication, rate limiting, and pagination. Support multiple news sources (NewsAPI, Google News API). Include methods for searching by keywords, date ranges, and relevance. Handle API errors gracefully with fallback to cached data. Acceptance Criteria: Client class works with both NewsAPI and Google News, includes rate limiting, returns structured article objects.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "high",
+      "dependencies": ["Set Up Environment Configuration (.env)", "Create Logging and Error Handling Utilities"],
+      "estimated_hours": 4
+    },
+    {
+      "task_name": "Build Scout Agent Node",
+      "task_description": "Implement Scout agent as LangGraph node in src/agents/scout.py. Fetch smart glasses news using NewsAPI client based on keywords from config/keywords.yaml. Filter by date (last 24 hours for daily runs). Structure output as list of article objects with title, URL, summary, source, published_date. Implement caching to avoid redundant API calls. Acceptance Criteria: Scout node integrates with LangGraph, fetches articles successfully, handles API failures with cached fallback, outputs structured data.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "high",
+      "dependencies": ["Implement News API Client for Scout Agent", "Set Up LangGraph State Schema"],
+      "estimated_hours": 5
+    },
+    {
+      "task_name": "Create Anthropic Claude Client Wrapper",
+      "task_description": "Build reusable Claude API wrapper in src/utils/claude_client.py with methods for chat completion, token counting, and streaming. Include retry logic, timeout handling, and cost tracking. Support different Claude models (Claude 3.5 Sonnet, etc.). Acceptance Criteria: Wrapper class handles all Claude API interactions, includes error handling and retries, tracks API usage and costs.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "medium",
+      "dependencies": ["Set Up Environment Configuration (.env)", "Create Logging and Error Handling Utilities"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Implement Curator Agent with Keyword Filtering",
+      "task_description": "Create keyword-based filtering logic in src/agents/curator.py that scores articles based on keyword matches from config/keywords.yaml. Assign relevance scores based on: brand mentions (Meta, Apple, Google), technology terms (AR, XR, Android XR), and content type (product launch, developer news, ecosystem updates). Acceptance Criteria: Keyword filter works correctly, assigns numerical scores, filters out irrelevant articles.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "medium",
+      "dependencies": ["Create Configuration File Schemas"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Build Curator Agent with AI Relevance Scoring",
+      "task_description": "Enhance Curator agent with Claude-based relevance assessment. Create prompt that evaluates article relevance to smart glasses ecosystem using title, summary, and URL. Combine keyword scores with AI scores (weighted average). Select top 5-10 articles. Acceptance Criteria: Curator uses both keyword and AI scoring, produces ranked list of curated articles, explains relevance decisions.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "high",
+      "dependencies": ["Implement Curator Agent with Keyword Filtering", "Create Anthropic Claude Client Wrapper"],
+      "estimated_hours": 4
+    },
+    {
+      "task_name": "Design Chronicler CLI Input Interface",
+      "task_description": "Create interactive CLI interface in src/agents/chronicler.py for capturing daily progress. Implement prompts: 'What did you work on today?', 'Any breakthroughs or insights?', 'Current blockers or challenges?', 'Links to commits, PRs, or demos?'. Support multi-line input. Allow skipping if no progress to report. Acceptance Criteria: CLI prompts are clear and user-friendly, supports multi-line input, handles empty responses gracefully.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "medium",
+      "dependencies": ["Set Up LangGraph State Schema"],
+      "estimated_hours": 2
+    },
+    {
+      "task_name": "Implement Chronicler Agent Progress Structuring",
+      "task_description": "Process raw CLI input into structured progress log with fields: date, work_summary, breakthroughs, blockers, artifacts (links), sentiment_analysis. Use Claude to extract key insights and themes from user's notes. Save to data/progress/ as JSON with markdown summary. Acceptance Criteria: Chronicler structures input correctly, saves both JSON and Markdown, Claude extracts meaningful insights.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "high",
+      "dependencies": ["Design Chronicler CLI Input Interface", "Create Anthropic Claude Client Wrapper"],
+      "estimated_hours": 4
+    },
+    {
+      "task_name": "Create Strategist Agent System Prompt",
+      "task_description": "Write comprehensive system prompt for Strategist in src/agents/strategist.py that instructs Claude to: synthesize curated news with user's progress, identify connections between external trends and internal work, generate 3-5 content hooks with unique angles, prioritize hooks that demonstrate thought leadership. Include examples of good vs bad hooks. Acceptance Criteria: System prompt is detailed and effective, produces high-quality content hooks consistently.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "medium",
+      "dependencies": ["Create Anthropic Claude Client Wrapper"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Build Strategist Agent Content Hook Generator",
+      "task_description": "Implement Strategist agent that takes curated articles and progress notes as input. Use Claude with system prompt to generate content hooks. Each hook should include: angle/thesis, supporting evidence from news, connection to personal progress, suggested narrative structure. Output 3-5 ranked hooks. Acceptance Criteria: Strategist generates contextually relevant hooks, connects news to progress effectively, provides actionable narrative guidance.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "high",
+      "dependencies": ["Create Strategist Agent System Prompt"],
+      "estimated_hours": 5
+    },
+    {
+      "task_name": "Parse and Load Long-Form Style Guide",
+      "task_description": "Create style guide parser in src/utils/style_parser.py that reads config/style_guide_longform.md and extracts: voice principles, structural constraints, epistemic hospitality rules, essay arc requirements, prohibited elements, core throughline. Convert to structured format (dict/Pydantic model) for prompt injection. Acceptance Criteria: Parser correctly extracts all 10 sections from markdown, converts to usable format, handles missing sections gracefully.",
+      "progress": "not_started",
+      "category": "Configuration & Style",
+      "complexity": "medium",
+      "dependencies": ["Create Configuration File Schemas"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Build Ghostwriter System Prompt with Style Rules",
+      "task_description": "Create comprehensive Ghostwriter system prompt in src/agents/ghostwriter.py that embeds the long-form style guide. Include instructions for: circling ideas (not thesis-first), epistemic hospitality techniques, metaphor management, essay arc (Recognition → Normalization → Reframing → Deepening → Open Ending), prohibited elements (no bullet points, exclamations, statistics). Make prompt modular to inject different content hooks. Acceptance Criteria: System prompt is 1500-2500 tokens, comprehensively covers style guide, produces essays matching the desired voice.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "high",
+      "dependencies": ["Parse and Load Long-Form Style Guide"],
+      "estimated_hours": 5
+    },
+    {
+      "task_name": "Implement Ghostwriter Essay Generation",
+      "task_description": "Build Ghostwriter agent for Substack essays. Takes content hook from Strategist and generates 1200-2000 word essay following style guide. Use Claude 3.5 Sonnet with extended context. Generate title using title philosophy (tension, no numbers/how-to). Save as Markdown in data/drafts/ with metadata (date, hook_id, word_count). Acceptance Criteria: Ghostwriter generates essays matching style guide, proper Markdown formatting, consistent voice and structure.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "high",
+      "dependencies": ["Build Ghostwriter System Prompt with Style Rules"],
+      "estimated_hours": 6
+    },
+    {
+      "task_name": "Create Twitter Content Generation Prompts",
+      "task_description": "Write separate system prompts for Twitter content in src/agents/ghostwriter.py: one for threads (5-10 tweets), one for standalone tweets. Adapt long-form voice to Twitter constraints: maintain measured tone, keep intellectual depth, but work within character limits. Include hook examples, formatting rules (numbered threads, spacing). Acceptance Criteria: Twitter prompts maintain brand voice while respecting platform constraints, produce engaging thread structures.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "medium",
+      "dependencies": ["Build Ghostwriter System Prompt with Style Rules"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Implement Ghostwriter Twitter Content Generation",
+      "task_description": "Extend Ghostwriter agent to generate Twitter content from Strategist hooks. Create both: thread format (array of 5-10 connected tweets with numbering) and standalone tweets (1-3 variations). Output as JSON with metadata (thread_id, tweet_count, total_chars). Save to data/drafts/. Acceptance Criteria: Generates both formats correctly, maintains character limits, preserves voice in short form.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "high",
+      "dependencies": ["Create Twitter Content Generation Prompts"],
+      "estimated_hours": 4
+    },
+    {
+      "task_name": "Build Essay Accessibility Validator",
+      "task_description": "Create validation system in src/utils/validators.py that checks essays against style guide requirements: no thesis in first 3 paragraphs, presence of cognitive pressure reducers, metaphor density check, no prohibited elements (bullets, exclamations), open ending detection. Return validation report with pass/fail and suggestions. Acceptance Criteria: Validator detects style violations accurately, provides actionable feedback, integrates with Ghostwriter pipeline.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "high",
+      "dependencies": ["Parse and Load Long-Form Style Guide"],
+      "estimated_hours": 5
+    },
+    {
+      "task_name": "Create Optimizer Agent for Substack Formatting",
+      "task_description": "Implement Optimizer agent's Substack module in src/agents/optimizer.py. Enhance Markdown formatting: proper heading hierarchy, section breaks for readability, pull quotes for key insights, estimated reading time, meta description. Ensure mobile-friendly formatting. Acceptance Criteria: Optimizer produces well-formatted Substack-ready Markdown, includes metadata, maintains style integrity.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "medium",
+      "dependencies": ["Implement Ghostwriter Essay Generation"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Build Optimizer Agent for Twitter Formatting",
+      "task_description": "Create Twitter optimization module in src/agents/optimizer.py. Ensure character limits (280 chars), add thread numbering (1/7 format), suggest hashtag placement (max 2-3 relevant hashtags), check for @ mentions, ensure proper line breaks for readability. Generate engagement preview. Acceptance Criteria: Optimizer enforces Twitter constraints, suggests improvements, maintains voice quality.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "medium",
+      "dependencies": ["Implement Ghostwriter Twitter Content Generation"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Implement Optimizer's Final Polish Pass",
+      "task_description": "Add final review step to Optimizer that checks: grammar and spelling (using language_tool_python or similar), consistency in terminology, proper nouns capitalization, link validity, overall flow and coherence. Generate diff showing changes made. Acceptance Criteria: Optimizer catches errors, makes subtle improvements, documents all changes in a review log.",
+      "progress": "not_started",
+      "category": "Agent Development",
+      "complexity": "medium",
+      "dependencies": ["Create Optimizer Agent for Substack Formatting", "Build Optimizer Agent for Twitter Formatting"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Define LangGraph Workflow Structure",
+      "task_description": "Create main graph definition in src/graph/workflow.py using LangGraph's StateGraph. Define all nodes: scout, curator, chronicler, strategist, ghostwriter, optimizer. Map node functions to agent implementations. Define graph entry point and exit conditions. Acceptance Criteria: Graph structure is clear, all nodes are defined, graph compiles without errors.",
+      "progress": "not_started",
+      "category": "LangGraph Workflow",
+      "complexity": "high",
+      "dependencies": ["Set Up LangGraph State Schema"],
+      "estimated_hours": 4
+    },
+    {
+      "task_name": "Implement Parallel Execution Branches",
+      "task_description": "Configure LangGraph to run Scout and Chronicler agents in parallel since they have no dependencies. Use LangGraph's conditional branching to launch both simultaneously and merge results before Strategist. Implement proper state merging logic. Acceptance Criteria: Scout and Chronicler run in parallel successfully, state merges correctly, no race conditions occur.",
+      "progress": "not_started",
+      "category": "LangGraph Workflow",
+      "complexity": "high",
+      "dependencies": ["Define LangGraph Workflow Structure"],
+      "estimated_hours": 4
+    },
+    {
+      "task_name": "Add Conditional Routing for Optional Steps",
+      "task_description": "Implement conditional routing logic: skip Chronicler if user provides no progress input, skip Strategist if no curated articles found, allow content generation even with partial data. Use LangGraph's conditional edges with custom routing functions. Acceptance Criteria: Graph handles missing data gracefully, routes around optional steps correctly, produces best-effort output.",
+      "progress": "not_started",
+      "category": "LangGraph Workflow",
+      "complexity": "medium",
+      "dependencies": ["Implement Parallel Execution Branches"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Build Fallback and Error Recovery Logic",
+      "task_description": "Implement error handling at graph level. If Scout fails, use cached articles from previous day. If Claude API fails, retry with exponential backoff up to 3 times. If all retries fail, checkpoint current state and provide partial output. Use LangGraph's error handling capabilities. Acceptance Criteria: Graph recovers from failures gracefully, uses fallback data when available, never crashes without producing some output.",
+      "progress": "not_started",
+      "category": "LangGraph Workflow",
+      "complexity": "high",
+      "dependencies": ["Add Conditional Routing for Optional Steps"],
+      "estimated_hours": 5
+    },
+    {
+      "task_name": "Implement State Persistence and Checkpointing",
+      "task_description": "Add state persistence to LangGraph workflow using checkpoints. Save state after each major node completion to data/cache/workflow_state.json. Enable resume from checkpoint if workflow is interrupted. Store intermediate results for debugging and analysis. Acceptance Criteria: State persists correctly between nodes, workflow can resume from interruption, checkpoints are readable for debugging.",
+      "progress": "not_started",
+      "category": "LangGraph Workflow",
+      "complexity": "medium",
+      "dependencies": ["Define LangGraph Workflow Structure"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Add Workflow Progress Indicators",
+      "task_description": "Implement real-time progress tracking for the LangGraph workflow. Show which agent is currently running, progress percentage, estimated time remaining. Use rich library for pretty terminal output with spinners and progress bars. Log key milestones (articles fetched, curation complete, etc.). Acceptance Criteria: Terminal shows clear progress, user knows which step is running, estimated times are reasonably accurate.",
+      "progress": "not_started",
+      "category": "LangGraph Workflow",
+      "complexity": "medium",
+      "dependencies": ["Define LangGraph Workflow Structure"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Create Workflow Execution Summary Report",
+      "task_description": "Generate comprehensive execution report at workflow completion. Include: articles fetched/curated counts, progress notes captured, hooks generated, drafts created, API usage stats, execution time per agent, any errors/warnings encountered. Save as JSON and human-readable Markdown. Acceptance Criteria: Report is comprehensive and informative, saved in multiple formats, helps user understand what happened.",
+      "progress": "not_started",
+      "category": "LangGraph Workflow",
+      "complexity": "medium",
+      "dependencies": ["Define LangGraph Workflow Structure"],
+      "estimated_hours": 2
+    },
+    {
+      "task_name": "Implement Workflow Dry-Run Mode",
+      "task_description": "Add dry-run mode that simulates workflow without making API calls or generating content. Uses cached/mock data to validate graph structure and state transitions. Useful for testing and development. Enable with --dry-run flag. Acceptance Criteria: Dry-run mode executes full workflow with mock data, no API calls made, useful for validation.",
+      "progress": "not_started",
+      "category": "LangGraph Workflow",
+      "complexity": "medium",
+      "dependencies": ["Define LangGraph Workflow Structure"],
+      "estimated_hours": 2
+    },
+    {
+      "task_name": "Build Article Caching System",
+      "task_description": "Implement intelligent caching for news articles in src/utils/cache.py. Cache fetched articles with TTL (24 hours). Use file-based cache in data/cache/articles/ with JSON files named by date. Include cache invalidation logic. Provide cache statistics (hit rate, size). Acceptance Criteria: Articles cache correctly with proper TTL, cache invalidation works, provides useful statistics.",
+      "progress": "not_started",
+      "category": "Data Management",
+      "complexity": "medium",
+      "dependencies": ["Initialize Data Storage Directories"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Create Progress Log Storage System",
+      "task_description": "Build progress log management in src/utils/storage.py. Store daily progress as JSON (machine-readable) and Markdown (human-readable) in data/progress/. Organize by date (YYYY-MM-DD format). Support querying historical progress by date range. Acceptance Criteria: Progress logs save in both formats, organized chronologically, easy to query and read.",
+      "progress": "not_started",
+      "category": "Data Management",
+      "complexity": "medium",
+      "dependencies": ["Initialize Data Storage Directories"],
+      "estimated_hours": 2
+    },
+    {
+      "task_name": "Implement Draft Management System",
+      "task_description": "Create draft storage and versioning system in src/utils/drafts.py. Save essays and tweets in data/drafts/ with metadata: draft_id, creation_date, content_hook_id, version, status (draft/reviewed/published). Support multiple versions of same content. Include search and filtering capabilities. Acceptance Criteria: Drafts save with complete metadata, versioning works correctly, can query drafts by various criteria.",
+      "progress": "not_started",
+      "category": "Data Management",
+      "complexity": "high",
+      "dependencies": ["Initialize Data Storage Directories"],
+      "estimated_hours": 4
+    },
+    {
+      "task_name": "Build File Organization and Cleanup Utilities",
+      "task_description": "Create utilities for managing data directory: archive old drafts (>30 days), clean up cache (remove expired entries), backup important progress logs. Implement as scheduled maintenance functions. Add --cleanup flag to main CLI. Acceptance Criteria: Cleanup utilities work correctly, old data is archived not deleted, backup system is reliable.",
+      "progress": "not_started",
+      "category": "Data Management",
+      "complexity": "medium",
+      "dependencies": ["Build Article Caching System", "Create Progress Log Storage System"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Create Draft Export Functionality",
+      "task_description": "Implement export functions in src/utils/export.py to prepare drafts for publishing. For Substack: export as .md with frontmatter. For Twitter: export as .txt with proper formatting or JSON for scheduling tools. Include copy-to-clipboard functionality. Acceptance Criteria: Exports work in multiple formats, easy to use from CLI, clipboard integration works on Mac/Linux.",
+      "progress": "not_started",
+      "category": "Data Management",
+      "complexity": "medium",
+      "dependencies": ["Implement Draft Management System"],
+      "estimated_hours": 2
+    },
+    {
+      "task_name": "Add Data Analytics and Insights",
+      "task_description": "Build analytics module in src/utils/analytics.py to track: most common news topics, progress patterns over time, draft generation statistics, API usage trends. Generate weekly/monthly reports. Visualize with simple text charts (using plotext). Acceptance Criteria: Analytics provide useful insights, reports are informative, visualizations work in terminal.",
+      "progress": "not_started",
+      "category": "Data Management",
+      "complexity": "medium",
+      "dependencies": ["Create Progress Log Storage System", "Implement Draft Management System"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Create Complete Long-Form Style Guide File",
+      "task_description": "Write the comprehensive config/style_guide_longform.md file with all 10 sections from user's specification: Purpose, Voice (core voice, emotional register), Writing Style (approach to ideas, abstraction & evidence, resolution), Cognitive Accessibility (named concepts, optional knowledge signaling, metaphor velocity, inquiry over declaration), Sentence Structure, Paragraph Structure, Titles, Essay Arc, Constraints, Core Throughline, Accessibility Pass checklist. Include examples and specific techniques. Acceptance Criteria: Style guide is complete, well-formatted, matches user's specification exactly, ready for parser to consume.",
+      "progress": "not_started",
+      "category": "Configuration & Style",
+      "complexity": "medium",
+      "dependencies": ["Initialize Python Project Structure"],
+      "estimated_hours": 2
+    },
+    {
+      "task_name": "Create Keywords Configuration for Curation",
+      "task_description": "Build config/keywords.yaml with comprehensive smart glasses keyword lists. Categories: brands (Meta, Ray-Ban Stories, Apple Vision Pro, Google Glass, Snap Spectacles, XREAL, Vuzix), technologies (AR, XR, VR, Android XR, ARCore, ARKit, spatial computing), content types (product launch, developer tools, SDK, ecosystem, partnerships). Include relevance weights for scoring. Acceptance Criteria: Keywords file is comprehensive, well-organized by category, includes scoring weights.",
+      "progress": "not_started",
+      "category": "Configuration & Style",
+      "complexity": "low",
+      "dependencies": ["Create Configuration File Schemas"],
+      "estimated_hours": 2
+    },
+    {
+      "task_name": "Define News Sources Configuration",
+      "task_description": "Create config/sources.yaml with News API configurations: API endpoints, query parameters, preferred sources (TechCrunch, The Verge, Ars Technica, Wired, etc.), language preferences, country codes, date range settings. Include fallback sources if primary fails. Acceptance Criteria: Sources config is complete, includes multiple reliable tech news sources, provides fallback options.",
+      "progress": "not_started",
+      "category": "Configuration & Style",
+      "complexity": "low",
+      "dependencies": ["Create Configuration File Schemas"],
+      "estimated_hours": 2
+    },
+    {
+      "task_name": "Build Twitter Style Rules Configuration",
+      "task_description": "Create config/style_guide_twitter.yaml with Twitter-specific formatting rules: character limits (280), thread best practices (hook in first tweet, use numbered format), hashtag strategy (max 2-3, placement at end), emoji usage (minimal, only if enhancing meaning), line break patterns, @ mention guidelines. Include voice adaptation notes. Acceptance Criteria: Twitter config captures platform-specific constraints, maintains brand voice guidelines.",
+      "progress": "not_started",
+      "category": "Configuration & Style",
+      "complexity": "low",
+      "dependencies": ["Create Configuration File Schemas"],
+      "estimated_hours": 2
+    },
+    {
+      "task_name": "Create Configuration Validation System",
+      "task_description": "Build config validator in src/utils/config_validator.py using Pydantic models. Validate all YAML configs on startup: check required fields exist, validate data types, ensure API keys are present, verify file paths. Provide clear error messages for misconfigurations. Acceptance Criteria: Validator catches configuration errors before runtime, error messages are helpful, supports all config files.",
+      "progress": "not_started",
+      "category": "Configuration & Style",
+      "complexity": "medium",
+      "dependencies": ["Create Configuration File Schemas"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Implement Configuration Hot-Reloading",
+      "task_description": "Add ability to reload configuration files without restarting application. Watch config/ directory for changes using watchdog library. Apply new configs dynamically where safe (keywords, sources, style rules). Require restart for sensitive changes (API keys). Acceptance Criteria: Config changes are detected automatically, safe configs reload without restart, user is notified of changes.",
+      "progress": "not_started",
+      "category": "Configuration & Style",
+      "complexity": "medium",
+      "dependencies": ["Create Configuration Validation System"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Build Main CLI Entry Point",
+      "task_description": "Create src/main.py as primary application entry point using Click or argparse. Support commands: run (execute full workflow), scout (test news fetching), chronicle (just capture progress), preview (show latest drafts), export (export drafts), cleanup (maintain data). Include --dry-run, --verbose, --config-dir flags. Acceptance Criteria: CLI is intuitive and well-documented, all commands work correctly, help text is comprehensive.",
+      "progress": "not_started",
+      "category": "CLI & UX",
+      "complexity": "high",
+      "dependencies": ["Define LangGraph Workflow Structure"],
+      "estimated_hours": 4
+    },
+    {
+      "task_name": "Create Interactive Chronicler Interface",
+      "task_description": "Build user-friendly CLI interface for progress input using rich library or prompt_toolkit. Support: multi-line input with syntax highlighting, save draft and continue later, review previous progress, template responses (common updates). Make it feel conversational not bureaucratic. Acceptance Criteria: Interface is pleasant to use, supports power-user features (templates, history), handles interruptions gracefully.",
+      "progress": "not_started",
+      "category": "CLI & UX",
+      "complexity": "medium",
+      "dependencies": ["Design Chronicler CLI Input Interface"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Implement Draft Preview System",
+      "task_description": "Create draft preview command that displays generated content in terminal with nice formatting. Use rich library for: markdown rendering, syntax highlighting for code blocks, proper heading hierarchy, readable line lengths. Support preview of specific draft by ID or most recent. Acceptance Criteria: Preview renders markdown beautifully in terminal, easy to read, supports navigation through multiple drafts.",
+      "progress": "not_started",
+      "category": "CLI & UX",
+      "complexity": "medium",
+      "dependencies": ["Implement Draft Management System"],
+      "estimated_hours": 2
+    },
+    {
+      "task_name": "Add Interactive Draft Selection and Export",
+      "task_description": "Create interactive menu for selecting drafts to export/publish. Show: list of recent drafts with metadata, preview on selection, multi-select for batch export, filter by date/status. Use pick library or similar. Streamline the review and publish workflow. Acceptance Criteria: Interactive menu is easy to navigate, preview integration works, export from menu is seamless.",
+      "progress": "not_started",
+      "category": "CLI & UX",
+      "complexity": "medium",
+      "dependencies": ["Implement Draft Preview System", "Create Draft Export Functionality"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Build Comprehensive README Documentation",
+      "task_description": "Create detailed README.md covering: project overview, architecture diagram, setup instructions (virtual env, dependencies, API keys), configuration guide (all config files explained), usage examples (common workflows), agent descriptions, troubleshooting section, contributing guidelines. Include screenshots/examples. Acceptance Criteria: README is comprehensive and well-organized, new users can set up project from README alone, includes troubleshooting for common issues.",
+      "progress": "not_started",
+      "category": "Testing & Documentation",
+      "complexity": "medium",
+      "dependencies": ["Build Main CLI Entry Point"],
+      "estimated_hours": 4
+    },
+    {
+      "task_name": "Write Agent Implementation Docs",
+      "task_description": "Document each agent in docs/ directory: agent purpose, inputs/outputs, configuration options, prompt engineering details, known limitations, examples of good output. Include system prompts as appendices. Make it easy for future modifications. Acceptance Criteria: Each agent has comprehensive documentation, prompt details are documented, examples are illustrative.",
+      "progress": "not_started",
+      "category": "Testing & Documentation",
+      "complexity": "medium",
+      "dependencies": ["Implement Optimizer's Final Polish Pass"],
+      "estimated_hours": 3
+    },
+    {
+      "task_name": "Create Example Configuration Set",
+      "task_description": "Provide working example configurations in config/examples/: example keywords for different industries, example style guides for different voices, example news sources for various topics. Make it easy to adapt project for other use cases. Acceptance Criteria: Examples are diverse and useful, demonstrate configuration flexibility, include comments explaining choices.",
+      "progress": "not_started",
+      "category": "Testing & Documentation",
+      "complexity": "low",
+      "dependencies": ["Create Complete Long-Form Style Guide File"],
+      "estimated_hours": 2
+    },
+    {
+      "task_name": "Write Unit Tests for Core Utilities",
+      "task_description": "Create pytest unit tests in tests/ for: news API client, Claude client wrapper, cache system, storage utilities, configuration validation, style guide parser. Aim for 80%+ coverage of utility functions. Use mocking for external APIs. Acceptance Criteria: Unit tests cover all critical utilities, tests pass consistently, use proper mocking for external dependencies.",
+      "progress": "not_started",
+      "category": "Testing & Documentation",
+      "complexity": "high",
+      "dependencies": ["Create Logging and Error Handling Utilities"],
+      "estimated_hours": 6
+    },
+    {
+      "task_name": "Write Integration Tests for Agent Pipeline",
+      "task_description": "Create integration tests that run the full agent pipeline with mock data: test Scout→Curator flow, test Chronicler input processing, test Strategist hook generation, test Ghostwriter with sample hooks, test Optimizer formatting. Use pytest fixtures for test data. Acceptance Criteria: Integration tests validate full workflows, use realistic mock data, catch integration issues.",
+      "progress": "not_started",
+      "category": "Testing & Documentation",
+      "complexity": "high",
+      "dependencies": ["Build Main CLI Entry Point"],
+      "estimated_hours": 6
+    },
+    {
+      "task_name": "Create LangGraph Workflow Tests",
+      "task_description": "Write tests specifically for LangGraph workflow: test parallel execution of Scout and Chronicler, test conditional routing logic, test error handling and fallback, test state persistence and checkpointing. Use LangGraph's testing utilities. Acceptance Criteria: Workflow tests cover all graph paths, parallel execution is validated, error handling is thoroughly tested.",
+      "progress": "not_started",
+      "category": "Testing & Documentation",
+      "complexity": "high",
+      "dependencies": ["Build Fallback and Error Recovery Logic"],
+      "estimated_hours": 5
+    },
+    {
+      "task_name": "Implement Style Guide Compliance Tests",
+      "task_description": "Create automated tests for style guide compliance: check essays for prohibited elements (bullets, exclamations), verify epistemic hospitality patterns, check essay arc structure, validate title format. Use the essay validator as basis. Acceptance Criteria: Style tests accurately detect violations, provide useful feedback, can be run on historical drafts.",
+      "progress": "not_started",
+      "category": "Testing & Documentation",
+      "complexity": "medium",
+      "dependencies": ["Build Essay Accessibility Validator"],
+      "estimated_hours": 4
+    },
+    {
+      "task_name": "Set Up CI/CD Pipeline Configuration",
+      "task_description": "Create GitHub Actions workflow or similar CI/CD configuration: run tests on push, check code quality with ruff/black, validate configuration files, build documentation. Run in container for consistency. Acceptance Criteria: CI/CD runs automatically, tests and linters pass, configuration is version-controlled.",
+      "progress": "not_started",
+      "category": "Testing & Documentation",
+      "complexity": "medium",
+      "dependencies": ["Write Unit Tests for Core Utilities"],
+      "estimated_hours": 3
+    }
+  ],
+  "metadata": {
+    "total_tasks": 57,
+    "estimated_total_hours": 190,
+    "categories": {
+      "Project Setup": 7,
+      "Agent Development": 17,
+      "LangGraph Workflow": 8,
+      "Data Management": 6,
+      "Configuration & Style": 7,
+      "CLI & UX": 4,
+      "Testing & Documentation": 8
+    },
+    "complexity_breakdown": {
+      "low": 10,
+      "medium": 30,
+      "high": 17
+    }
+  }
+}

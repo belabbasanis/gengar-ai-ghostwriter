@@ -1,0 +1,49 @@
+# Core Dependencies
+python-dotenv==1.0.0
+pydantic==2.5.0
+pyyaml==6.0.1
+
+# LangChain and LangGraph
+langchain==0.1.0
+langgraph==0.0.20
+langchain-anthropic==0.1.0
+
+# Anthropic Claude API
+anthropic==0.8.0
+
+# News APIs and HTTP
+requests==2.31.0
+aiohttp==3.9.1
+
+# CLI and Terminal UI
+click==8.1.7
+rich==13.7.0
+prompt-toolkit==3.0.43
+
+# Data and File Handling
+jsonschema==4.20.0
+
+# Caching and Storage
+diskcache==5.6.3
+
+# Text Processing
+markdown==3.5.1
+language-tool-python==2.8.0
+
+# File Watching (for config hot-reload)
+watchdog==3.0.0
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+
+# Code Quality
+black==23.12.1
+ruff==0.1.9
+mypy==1.7.1
+
+# Utilities
+python-dateutil==2.8.2
+tenacity==8.2.3

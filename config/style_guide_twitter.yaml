@@ -1,0 +1,202 @@
+# Twitter Style Guide Configuration
+# Platform-specific formatting and engagement rules
+
+# Character Limits
+limits:
+  max_tweet_length: 280
+  ideal_tweet_length: 250  # Leave room for RTs with comments
+  max_thread_length: 10
+  min_thread_length: 5
+
+# Thread Formatting
+thread:
+  # Numbering format
+  use_numbering: true
+  numbering_format: "{current}/{total}"  # e.g., "1/7"
+  numbering_position: "end"  # start, end, both
+  
+  # Thread structure
+  hook_in_first_tweet: true
+  summary_in_last_tweet: false  # Avoid summarizing, stay with open endings
+  
+  # Spacing and readability
+  use_line_breaks: true
+  max_lines_per_tweet: 4
+  
+  # Thread starters
+  use_thread_indicator: true
+  thread_indicator: "🧵"  # Optional emoji indicator
+
+# Voice Adaptation for Twitter
+voice:
+  # Maintain long-form principles but adapt for brevity
+  maintain_measured_tone: true
+  avoid_urgency_language: true
+  no_exclamation_points: true
+  
+  # Twitter-specific constraints
+  acceptable_fragments: true  # Sentence fragments OK for brevity
+  maintain_intellectual_depth: true
+  preserve_epistemic_hospitality: true  # Still avoid jargon
+  
+  # Emotional register (same as long-form)
+  tone: "melancholic"  # not outraged, not alarmist
+  mood: "reflective"  # not motivational
+
+# Hashtag Strategy
+hashtags:
+  use_hashtags: true
+  max_hashtags_per_tweet: 2
+  max_hashtags_in_thread: 3
+  
+  # Placement
+  placement: "end"  # end of tweet, never mid-sentence
+  
+  # Relevant hashtags for smart glasses content
+  approved_hashtags:
+    - "#AR"
+    - "#XR"
+    - "#SpatialComputing"
+    - "#AndroidXR"
+    - "#SmartGlasses"
+    - "#AugmentedReality"
+    - "#Wearables"
+  
+  # Avoid trendy/generic hashtags
+  avoid_hashtags:
+    - "#Tech"
+    - "#Innovation"
+    - "#Future"
+    - "#AI"  # unless directly relevant
+
+# Mention Strategy
+mentions:
+  # @ mention relevant accounts when appropriate
+  mention_sources: false  # Don't @ mention news sources
+  mention_companies: true  # OK to @ brands discussed
+  mention_people: false  # Avoid unless directly relevant
+  
+  # Relevant company handles
+  company_handles:
+    Meta: "@Meta"
+    Apple: "@Apple"
+    Google: "@Google"
+    Snap: "@Snap"
+
+# Link Handling
+links:
+  # Always include source links in threads
+  include_source_links: true
+  link_position: "last_tweet"  # Put links in final tweet
+  
+  # Link formatting
+  use_link_shorteners: false  # Twitter auto-shortens
+  add_link_context: true  # Explain what link is
+
+# Formatting Rules
+formatting:
+  # Emphasis (limited options on Twitter)
+  use_quotes: true  # "quoted text" for emphasis
+  use_caps: false  # ALL CAPS = shouting, avoid
+  
+  # Punctuation
+  use_em_dashes: true  # Long dashes for pauses
+  use_ellipses: true  # ... for trailing thoughts
+  oxford_comma: true
+  
+  # Avoid
+  no_bullet_points: true  # Consistent with long-form style
+  no_numbered_lists: true  # Except thread numbering
+  no_emoji_heavy: true  # Minimal emoji use
+
+# Content Structure
+structure:
+  # First tweet (hook)
+  first_tweet:
+    style: "observational"  # Start with observation, not thesis
+    avoid_questions: false  # Questions OK as hooks
+    ideal_length: 220
+  
+  # Middle tweets (development)
+  middle_tweets:
+    one_idea_per_tweet: true
+    build_on_previous: true
+    avoid_repetition: true
+  
+  # Last tweet (open ending)
+  last_tweet:
+    avoid_conclusions: true  # No "in conclusion"
+    avoid_calls_to_action: true  # No "follow for more"
+    reframe_dont_resolve: true  # Consistent with long-form
+    include_source_links: true
+
+# Engagement Optimization (while maintaining integrity)
+engagement:
+  # What TO do
+  make_first_tweet_strong: true
+  vary_tweet_length: true
+  use_concrete_examples: true
+  
+  # What NOT to do (anti-engagement-hacking)
+  no_engagement_bait: true  # No "RT if you agree"
+  no_artificial_urgency: true  # No "You need to see this"
+  no_controversy_mining: true  # No deliberately provocative takes
+  no_thread_teasing: true  # No "Wait until tweet 7..."
+
+# Quality Checks
+quality_checks:
+  # Run these checks before posting
+  - check: "character_limits"
+    description: "Ensure all tweets under 280 chars"
+  
+  - check: "no_exclamation_points"
+    description: "Remove exclamation points"
+  
+  - check: "proper_thread_numbering"
+    description: "Verify numbering is sequential and accurate"
+  
+  - check: "hashtag_count"
+    description: "Max 2-3 hashtags total in thread"
+  
+  - check: "voice_consistency"
+    description: "Measured tone maintained throughout"
+  
+  - check: "no_jargon_without_context"
+    description: "Technical terms are explained or avoided"
+  
+  - check: "open_ending"
+    description: "Last tweet reframes, doesn't resolve"
+
+# Standalone Tweet Rules
+standalone:
+  # For single tweets (not threads)
+  ideal_length: 250
+  include_context: true  # Must be self-contained
+  avoid_vague_statements: true
+  link_to_source: true  # Especially for news commentary
+  
+  # Standalone tweet types
+  types:
+    - type: "observation"
+      description: "Single insight about smart glasses news"
+    
+    - type: "connection"
+      description: "Link between news and broader trend"
+    
+    - type: "reframe"
+      description: "Alternative perspective on news"
+
+# Timing and Frequency
+timing:
+  # Not directly relevant to generation, but good to document
+  optimal_posting_times:
+    - "9:00 AM EST"  # Morning commute
+    - "12:00 PM EST"  # Lunch break
+    - "5:00 PM EST"  # Evening commute
+  
+  # Thread spacing (if posting manually)
+  time_between_tweets: 3  # seconds
+  
+  # Publishing frequency recommendations
+  threads_per_week: 2-3
+  standalone_tweets_per_day: 1-2

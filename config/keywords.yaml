@@ -1,0 +1,147 @@
+# Smart Glasses News Curation Keywords
+# Used by Curator agent to score article relevance
+
+# Brand Keywords - Major smart glasses manufacturers and products
+brands:
+  - name: "Meta Ray-Ban"
+    weight: 1.0
+    aliases: ["Ray-Ban Stories", "Meta glasses"]
+  
+  - name: "Apple Vision Pro"
+    weight: 1.0
+    aliases: ["Vision Pro", "Apple spatial", "visionOS"]
+  
+  - name: "Google Glass"
+    weight: 0.8
+    aliases: ["Glass Enterprise", "Google AR glasses"]
+  
+  - name: "Snap Spectacles"
+    weight: 0.9
+    aliases: ["Snapchat glasses", "Spectacles AR"]
+  
+  - name: "XREAL"
+    weight: 0.8
+    aliases: ["Nreal", "XREAL Air", "XREAL Light"]
+  
+  - name: "Vuzix"
+    weight: 0.7
+    aliases: ["Vuzix Blade", "Vuzix Shield"]
+  
+  - name: "Magic Leap"
+    weight: 0.8
+    aliases: ["Magic Leap 2", "Magic Leap One"]
+  
+  - name: "Microsoft HoloLens"
+    weight: 0.7
+    aliases: ["HoloLens 2", "Azure Mixed Reality"]
+
+# Technology Keywords - Core AR/XR technologies
+technologies:
+  - name: "Android XR"
+    weight: 1.0
+    aliases: ["AndroidXR", "Google XR"]
+  
+  - name: "ARCore"
+    weight: 0.8
+    aliases: ["Google ARCore", "AR Core"]
+  
+  - name: "ARKit"
+    weight: 0.8
+    aliases: ["Apple ARKit", "AR Kit"]
+  
+  - name: "spatial computing"
+    weight: 0.9
+    aliases: ["spatial audio", "spatial video"]
+  
+  - name: "augmented reality"
+    weight: 0.7
+    aliases: ["AR", "mixed reality", "MR"]
+  
+  - name: "extended reality"
+    weight: 0.7
+    aliases: ["XR"]
+  
+  - name: "waveguide"
+    weight: 0.6
+    aliases: ["optical waveguide", "display waveguide"]
+  
+  - name: "passthrough"
+    weight: 0.6
+    aliases: ["camera passthrough", "video passthrough"]
+
+# Content Type Keywords - What kind of news we care about
+content_types:
+  - name: "product launch"
+    weight: 1.0
+    aliases: ["announced", "unveils", "launches", "releases"]
+  
+  - name: "developer"
+    weight: 0.9
+    aliases: ["SDK", "API", "developer tools", "dev kit"]
+  
+  - name: "ecosystem"
+    weight: 0.8
+    aliases: ["platform", "marketplace", "app store"]
+  
+  - name: "partnership"
+    weight: 0.7
+    aliases: ["collaboration", "teams up", "partners with"]
+  
+  - name: "funding"
+    weight: 0.6
+    aliases: ["raises", "investment", "Series A", "Series B"]
+  
+  - name: "acquisition"
+    weight: 0.8
+    aliases: ["acquires", "buys", "purchases"]
+
+# Industry Keywords - Related industries and use cases
+industries:
+  - name: "enterprise AR"
+    weight: 0.7
+    aliases: ["industrial AR", "workplace AR"]
+  
+  - name: "healthcare"
+    weight: 0.6
+    aliases: ["medical AR", "surgical AR"]
+  
+  - name: "gaming"
+    weight: 0.5
+    aliases: ["AR games", "AR gaming"]
+  
+  - name: "navigation"
+    weight: 0.6
+    aliases: ["AR navigation", "heads-up display"]
+  
+  - name: "social media"
+    weight: 0.7
+    aliases: ["social AR", "AR filters"]
+
+# Negative Keywords - Topics to avoid or downweight
+negative_keywords:
+  - name: "virtual reality"
+    weight: -0.3
+    aliases: ["VR", "VR headset"]
+  
+  - name: "metaverse"
+    weight: -0.2
+    aliases: []
+  
+  - name: "NFT"
+    weight: -0.5
+    aliases: ["non-fungible token", "crypto"]
+
+# Scoring Configuration
+scoring:
+  # Minimum score for article to be considered relevant (0.0 - 1.0)
+  min_relevance_score: 0.3
+  
+  # Weight for keyword matching score vs AI relevance score
+  keyword_weight: 0.4
+  ai_weight: 0.6
+  
+  # Bonus for articles with multiple brand mentions
+  multi_brand_bonus: 0.1
+  
+  # Bonus for articles with technology + product mentions
+  tech_product_bonus: 0.15

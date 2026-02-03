@@ -1,0 +1,134 @@
+# News API Configuration
+# Sources for smart glasses and AR/XR news
+
+# NewsAPI.org Configuration
+newsapi:
+  enabled: true
+  endpoint: "https://newsapi.org/v2/everything"
+  
+  # Preferred tech news sources (comma-separated)
+  sources: 
+    - "techcrunch"
+    - "the-verge"
+    - "wired"
+    - "ars-technica"
+    - "engadget"
+    - "venturebeat"
+  
+  # Search configuration
+  language: "en"
+  sort_by: "publishedAt"  # publishedAt, relevancy, popularity
+  page_size: 50
+  
+  # Rate limiting (requests per hour for free tier)
+  rate_limit: 100
+  
+  # Domains to prioritize (if sources unavailable)
+  domains:
+    - "techcrunch.com"
+    - "theverge.com"
+    - "wired.com"
+    - "arstechnica.com"
+    - "engadget.com"
+    - "venturebeat.com"
+    - "protocol.com"
+    - "theinformation.com"
+    - "9to5google.com"
+    - "9to5mac.com"
+
+# Google News API Configuration (optional)
+google_news:
+  enabled: false  # Enable if you have API key
+  endpoint: "https://newsapi.org/v2/top-headlines"
+  country: "us"
+  category: "technology"
+  page_size: 50
+
+# RSS Feeds (fallback if APIs fail)
+rss_feeds:
+  enabled: true
+  
+  feeds:
+    - url: "https://techcrunch.com/feed/"
+      name: "TechCrunch"
+      priority: 1
+    
+    - url: "https://www.theverge.com/rss/index.xml"
+      name: "The Verge"
+      priority: 1
+    
+    - url: "https://www.wired.com/feed/rss"
+      name: "Wired"
+      priority: 1
+    
+    - url: "https://arstechnica.com/feed/"
+      name: "Ars Technica"
+      priority: 2
+    
+    - url: "https://www.engadget.com/rss.xml"
+      name: "Engadget"
+      priority: 2
+    
+    - url: "https://venturebeat.com/feed/"
+      name: "VentureBeat"
+      priority: 2
+
+# Search Query Configuration
+search_queries:
+  # Primary queries (high priority)
+  primary:
+    - "smart glasses"
+    - "AR glasses"
+    - "Android XR"
+    - "Apple Vision Pro"
+    - "Meta Ray-Ban"
+  
+  # Secondary queries (medium priority)
+  secondary:
+    - "augmented reality wearable"
+    - "XR headset"
+    - "spatial computing"
+    - "AR SDK"
+  
+  # Combination queries (brand + technology)
+  combinations:
+    - "Meta AND augmented reality"
+    - "Apple AND spatial computing"
+    - "Google AND Android XR"
+    - "Snap AND AR glasses"
+
+# Filtering Configuration
+filters:
+  # Date range (relative to run time)
+  date_range_days: 1  # Fetch news from last N days
+  
+  # Exclude articles with these keywords in title
+  exclude_title_keywords:
+    - "crypto"
+    - "cryptocurrency"
+    - "NFT"
+    - "bitcoin"
+    - "stock price"
+  
+  # Minimum article length (characters)
+  min_article_length: 200
+  
+  # Exclude paywalled content
+  exclude_paywalled: false
+
+# Caching Configuration
+cache:
+  enabled: true
+  ttl_hours: 24  # Cache articles for 24 hours
+  max_cache_size_mb: 100
+  
+# Fallback Strategy
+fallback:
+  # Use cached articles if API fails
+  use_cache_on_failure: true
+  
+  # Use RSS feeds if both APIs fail
+  use_rss_on_failure: true
+  
+  # Minimum articles to proceed with workflow
+  min_articles_threshold: 3
